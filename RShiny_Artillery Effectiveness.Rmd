@@ -1,0 +1,55 @@
+---
+title: "Shiny"
+author: "Nguyen"
+date: "2022-12-12"
+output: html_document
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(shiny)
+
+# Define the user interface for the Shiny app
+ui <- fluidPage(
+  # Add a title to the app
+  titlePanel("Total Effectiveness of Artillery System"),
+  
+  # Create a sidebar layout with inputs for range, accuracy, lethality, mobility, and cost
+  sidebarLayout(
+    sidebarPanel(
+      numericInput("range", "Range (km)", value = 100),
+      numericInput("accuracy", "Accuracy (%)", value = 90),
+      numericInput("lethality", "Lethality", value = 1),
+      numericInput("mobility", "Mobility (km/hr)", value = 60),
+      numericInput("cost", "Cost", value = 1000000)
+    ),
+    
+    # Show the calculated total effectiveness in the main panel
+    mainPanel(
+      textOutput("total_effectiveness")
+    )
+  )
+)
+
+# Define the server logic for the Shiny app
+server <- function(input, output) {
+  # Use reactive() to create a reactive context
+  total_effectiveness <- reactive({
+    # Calculate the total effectiveness using the formula mentioned above
+    (input$range + input$accuracy + input$lethality + input$mobility) / input$cost
+  })
+  
+  # Output the total effectiveness
+  output$total_effectiveness <- renderText({
+    paste("Total Effectiveness:", total_effectiveness())
+  })
+}
+
+# Run the Shiny app
+shinyApp(ui = ui, server = server)
+
+
+```
+
