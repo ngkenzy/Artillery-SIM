@@ -1,0 +1,51 @@
+---
+title: "Shiny"
+author: "Nguyen"
+date: "2022-12-12"
+output: html_document
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(shiny)
+library(visNetwork)
+
+# Define UI
+ui <- fluidPage(
+  # Title
+  titlePanel("Visualizing Interdependency of Multiple Systems"),
+  
+  # Main panel
+  mainPanel(
+    # Output for network visualization
+    visNetworkOutput("network")
+  )
+)
+
+# Define server
+server <- function(input, output) {
+  # Create data frame with systems and their dependencies
+  systems <- data.frame(id = c(1, 2, 3, 4),
+                        label = c("System A", "System B", "System C", "System D"),
+                        stringsAsFactors = FALSE)
+  dependencies <- data.frame(from = c(1, 1, 2, 3, 4, 4),
+                             to = c(2, 3, 4, 4, 1, 3),
+                             stringsAsFactors = FALSE)
+  
+  # Create network visualization
+  network <- reactive({
+    visNetwork(systems, dependencies, width = "100%") %>%
+      visEdges(arrows = "to")
+  })
+  
+  # Show network visualization
+  output$network <- renderVisNetwork({
+    network()
+  })
+}
+
+# Run the app
+shinyApp(ui, server)
+
+```
