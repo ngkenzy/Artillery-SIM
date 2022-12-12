@@ -1,0 +1,184 @@
+---
+title: "Missile Performance"
+author: "Nguyen"
+date: "2022-12-11"
+output: html_document
+runtime: shiny
+---
+This code generates a given performance score for five different weapons systems. The systems are the Extended Range Cannon Artillery (ERCA), Precision Strike Missile (PrSM), Precision Strike Missile 2 (PrSM2), Tomahawk missile systems (MRC1 and MRC2), and calculates their accuracy. The performance score is calculated by weighting the range accuracy, effectiveness against personnel and materiel, and time to reload and fire again. The code sets the seed to ensure reproducibility and uses the runif function to generate random numbers between 0 and 1. The performance score is calculated by multiplying the random numbers with their corresponding weights and summing them up. The code then calculates the accuracy of each system by dividing the random performance score by the maximum possible performance score for that system. Finally, the code prints the results.
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+#ERCA
+
+# Set the seed to ensure reproducibility 
+set.seed(12345)
+
+# Generate random numbers
+Range_accuracy <- runif(1, 0, 1)
+Effectiveness_anti_personnel_anti_materiel <- runif(1, 0, 1)
+Time_to_reload_fire_again <- runif(1, 0, 1)
+
+# Calculate the performance
+performanceERCA <- (Range_accuracy * 0.9) + (Effectiveness_anti_personnel_anti_materiel * 0.9) + (Time_to_reload_fire_again * 0.8)
+
+# Print the results
+print(paste("The performance of the Extended Range Cannon Artillery (ERCA) with a range of 70km is:", performanceERCA))
+
+
+
+# Set the seed to ensure reproducibility 
+set.seed(5)
+
+# Generate random numbers
+Range_accuracy <- runif(1, 0, 1)
+Effectiveness_anti_personnel_anti_materiel <- runif(1, 0, 1)
+Time_to_reload_fire_again <- runif(1, 0, 1)
+
+# Calculate the performance
+performancePRSM <- (Range_accuracy * 0.8) + (Effectiveness_anti_personnel_anti_materiel * 0.8) + (Time_to_reload_fire_again * 0.8)
+
+# Print the results
+print(paste("The performance of the Precision Strike Missile (PrSM) is:", performancePRSM))
+
+
+# Set the seed to ensure reproducibility 
+set.seed(5)
+
+# Generate random numbers
+Range_accuracy <- runif(1, 0, 1)
+Effectiveness_anti_personnel_anti_materiel <- runif(1, 0, 1)
+Time_to_reload_fire_again <- runif(1, 0, 1)
+
+# Calculate the performance
+performancePRSM2 <- (Range_accuracy * 0.9) + (Effectiveness_anti_personnel_anti_materiel * 0.8) + (Time_to_reload_fire_again * 0.7)
+
+# Print the results
+print(paste("The performance of the Precision Strike Missile (PrSM2) is:", performancePRSM2))
+
+
+# Set the seed to ensure reproducibility 
+set.seed(5)
+
+# Generate random numbers
+Range_accuracy <- runif(1, 0, 1)
+Effectiveness_anti_personnel_anti_materiel <- runif(1, 0, 1)
+Time_to_reload_fire_again <- runif(1, 0, 1)
+
+# Calculate the performance
+performanceMRC1 <- (Range_accuracy * 0.8) + (Effectiveness_anti_personnel_anti_materiel * 0.8) + (Time_to_reload_fire_again * 0.1)
+
+# Print the results
+print(paste("The performance of the Tomahawk missile systems (MRC1) is:", performanceMRC1))
+
+# Set the seed to ensure reproducibility 
+set.seed(5)
+
+# Generate random numbers
+Range_accuracy <- runif(1, 0, 1)
+Effectiveness_anti_personnel_anti_materiel <- runif(1, 0, 1)
+Time_to_reload_fire_again <- runif(1, 0, 1)
+
+# Calculate the performance
+performanceMRC2 <- (Range_accuracy * 0.8) + (Effectiveness_anti_personnel_anti_materiel * 0.8) + (Time_to_reload_fire_again * 0.7)
+
+# Print the results
+print(paste("The performance of the Tomahawk missile systems (MRC2) is:", performanceMRC2))
+
+# Set the seed to ensure reproducibility 
+set.seed(5)
+
+# Generate random numbers
+PrSM <- runif(1, 0, performancePRSM)
+PrSM2 <- runif(1, 0, performancePRSM2)
+MRC1 <- runif(1, 0, performanceMRC1)
+MRC2 <- runif(1, 0, performanceMRC2)
+ERCA <- runif(1, 0, performanceERCA)
+
+PrSM_accuracy <- PrSM / .01
+PrSM2_accuracy <- PrSM2 / .01
+MRC1_accuracy <- MRC1 / .01
+MRC2_accuracy <- MRC2 / .01
+ERCA_accuracy <- ERCA / .01
+
+# Print the results 
+print(paste("The accuracy of PrSM is:", PrSM_accuracy))
+print(paste("The accuracy of PrSM2 is:", PrSM2_accuracy))
+print(paste("The accuracy of MRC1 is:", MRC1_accuracy))
+print(paste("The accuracy of MRC2 is:",
+MRC2_accuracy))
+print(paste("The accuracy of ERCA is:", ERCA_accuracy))
+```
+This code calculates the number of targets each of five weapons systems would hit, given 3,000 random targets located less than 2,000 km in range. The systems are the Precision Strike Missile (PrSM), Precision Strike Missile 2 (PrSM2), Tomahawk missile systems (MRC1 and MRC2), and the Extended Range Cannon Artillery (ERCA). The code sets the seed to ensure reproducibility and uses the runif function to generate random numbers between 0 and 2,000 km for each system. The code then calculates the number of targets each system would hit by summing up the number of targets within the maximum range of each system and with a performance and accuracy of 0.05 and 0.4, respectively. Finally, the code calculates the total number of hits for all systems combined and the percentage of targets hit by each system.
+```{r setup, include=FALSE}
+#Calculate the number of targets each system will hit giving 2 thousand random targets located less than 2000km in the range given .05 performance for each system and 0.4 accuracies for each system
+#PrSM Max range is 500.
+#PrSM2 Max range is 1200.
+#MRC1 Max range is 1800.
+#MRC2 Max range is 150.
+#ERCA max range is 70.
+#Get the total number of targets hit for each system# Set the seed to ensure reproducibility 
+set.seed(123)
+
+# Generate random numbers
+PrSM <- runif(3000, 0, 2000)
+PrSM2 <- runif(3000, 0, 2000)
+MRC1 <- runif(3000, 0, 2000)
+MRC2 <- runif(3000, 0, 2000)
+ERCA <- runif(3000, 0, 2000)
+
+
+# Calculate the number of targets each system will hit 2 rounds per target
+PrSM_hits <- sum(PrSM_accuracy & PrSM <= 500) 
+PrSM2_hits <- sum(PrSM2_accuracy & PrSM2 <= 1200) 
+MRC1_hits <- sum(MRC1_accuracy  & MRC1<= 1800) 
+MRC2_hits <- sum(MRC2_accuracy & MRC2 <= 150) 
+ERCA_hits <- sum(ERCA_accuracy  & ERCA <= 70)
+
+# Print the results 
+print(paste("The number of targets hit by PrSM is:", PrSM_hits))
+print(paste("The number of targets hit by PrSM2 is:", PrSM2_hits))
+print(paste("The number of targets hit by MRC1 is:", MRC1_hits))
+print(paste("The number of targets hit by MRC2 is:", MRC2_hits))
+print(paste("The number of targets hit by ERCA is:", ERCA_hits))
+
+# Calculate the total hit of all systems combined
+total_hits <- 3000
+
+# Calculate the percentage of each system
+PrSM_percentage <- PrSM_hits / total_hits * 100
+PrSM2_percentage <- PrSM2_hits / total_hits * 100
+MRC1_percentage <- MRC1_hits / total_hits * 100
+MRC2_percentage <- MRC2_hits / total_hits * 100
+ERCA_percentage <- ERCA_hits / total_hits * 100
+
+# Print the results 
+
+print(paste("The total hit of all systems combined is:", total_hits))
+print(paste("The percentage of targetshit by PrSM is:", PrSM_percentage))
+print(paste("The percentage of targets hit by PrSM2 is:", PrSM2_percentage))
+print(paste("The percentage of targets hit by MRC1 is:", MRC1_percentage))
+print(paste("The percentage of targets hit by MRC2 is:", MRC2_percentage))
+print(paste("The percentage of targets hit by ERCA is:", ERCA_percentage))
+
+library(ggplot2)
+
+# Data frame
+df <- data.frame(System = c("PrSM", "PrSM2", "MRC1", "MRC2", "ERCA"),
+                 Hits = c(PrSM_hits, PrSM2_hits, MRC1_hits, MRC2_hits, ERCA_hits),
+                 Percentage = c(PrSM_percentage, PrSM2_percentage, MRC1_percentage, MRC2_percentage, ERCA_percentage))
+
+# Plot
+ggplot(df, aes(x = System, y = Hits)) +
+  geom_bar(stat = "identity", fill = "turquoise") +
+  geom_text(aes(label=paste0(round(Percentage,2), "%")), color="black", position = position_dodge(width=0.9), vjust=-0.25) +
+  labs(title = "Number of Targets Hit by Each System",
+       y = "Number of Hits") +
+  theme_minimal()
+
+```
+
+```{r setup, include=FALSE}
+
+
+
+```
